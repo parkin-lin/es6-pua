@@ -1,25 +1,19 @@
 {
-  "name": "your-lib",
-  "author": "your-name",
-  "description": "the Intro of your lib",
+  "name": "es6-plus",
+  "author": "J.K. Lover",
+  "description": "",
   "license": "MIT",
   "version": "0.0.0",
-  "keywords": [
-    "vite",
-    "vitejs",
-    "vitest",
-    "template"
-  ],
+  "keywords": [],
   "private": true,
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/your-lib.js",
-  "module": "./dist/your-lib.js",
-  "types": "./index.d.ts",
+  "main": "./dist/es6-plus.js",
+  "module": "./dist/es6-plus.js",
   "exports": {
-    "import": "./dist/your-lib.js"
+    "import": "./dist/es6-plus.js"
   },
   "scripts": {
     "start": "vite",

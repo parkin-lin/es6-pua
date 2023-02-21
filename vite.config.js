@@ -14,7 +14,7 @@ export default defineConfig({
     lib: {
       entry: './src/index.js',
       formats: ['es'],
-      fileName: 'your-lib' /* DIY library name as you wish  */
+      fileName: 'es6-plus'
     }
   }
 })

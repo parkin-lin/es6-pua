@@ -6,7 +6,7 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
-      include: ['__tests__/*.{test,spec}.{js,ts,jsx,tsx}']
+      include: ['__tests__/*.{test,spec}.{js,jsx}']
     }
   })
 )
