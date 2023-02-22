@@ -6,15 +6,8 @@ export default defineConfig({
     alias: [
       {
         find: '@',
-        replacement: resolve(__dirname, 'src')
+        replacement: resolve(__dirname, 'packages')
       }
     ]
-  },
-  build: {
-    lib: {
-      entry: './src/index.js',
-      formats: ['es'],
-      fileName: 'es6-plus'
-    }
   }
 })
