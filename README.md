@@ -10,6 +10,6 @@
 
 ## Intro
 
-- ES6 Challenges
-- Open Source of the Revelation
-- ES6+ Best Practices
+- Next Generation ECMAScript Challenges
+- The Revelation of Open-Source Code
+- Post-ES6-era Best Practices
