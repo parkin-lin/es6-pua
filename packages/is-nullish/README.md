@@ -1,4 +1,4 @@
-# isNullish()
+# `isNullish()`
 
 ## Think More
 

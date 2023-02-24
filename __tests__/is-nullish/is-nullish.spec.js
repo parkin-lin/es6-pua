@@ -1,5 +1,5 @@
 import { suite, it, expect } from 'vitest'
-import isNullish from './index'
+import isNullish from '@/is-nullish'
 
 suite('isNullish() API', () => {
   it('null is nullish', () => {
