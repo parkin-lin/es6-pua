@@ -15,5 +15,5 @@
 
 ### Vue.js
 
-- [isObject](https://github.com/vuejs/core/blob/main/packages/shared/src/index.ts)
-- [isPlainObject](https://github.com/vuejs/core/blob/main/packages/shared/src/index.ts)
+- [isObject()](https://github.com/vuejs/core/blob/main/packages/shared/src/index.ts)
+- [isPlainObject()](https://github.com/vuejs/core/blob/main/packages/shared/src/index.ts)

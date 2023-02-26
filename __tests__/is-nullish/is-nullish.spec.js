@@ -1,7 +1,7 @@
 import { suite, it, expect } from 'vitest'
 import isNullish from '@/is-nullish'
 
-suite('isNullish() API', () => {
+suite('isNullish()', () => {
   it('null is nullish', () => {
     expect(isNullish(null)).toBe(true)
   })
