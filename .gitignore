@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+**/slides.md
 
 # Editor directories and files
 .vscode/*
@@ -51,6 +52,9 @@ jspm_packages/
 
 # Optional npm cache directory
 .npm
+
+# slidev with pnpm
+.npmrc
 
 # Optional eslint cache
 .eslintcache

@@ -1,6 +1,6 @@
-# ES6+ PLUS
+# ES6 RFCs
 
-<p align='center'>ES6+ PLUS</p>
+<p align='center'>ES6 RFCs</p>
 
 <br>
 
@@ -10,6 +10,6 @@
 
 ## Intro
 
-- Next Generation ECMAScript Challenges
+- RFCs (Request For Comments) for Post-ES6-era Best Practices
 - The Revelation of Open-Source Code
-- Post-ES6-era Best Practices
+- Next Generation ECMAScript Challenges
