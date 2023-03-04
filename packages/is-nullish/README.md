@@ -2,12 +2,14 @@
 
 ## Best Practices
 
+### Vue.js
+
 - [isUndef()](https://github.com/vuejs/vue/blob/main/src/shared/util.ts)
 
 ## Think Different
 
 - [x] `null` vs `undefined`
-- [x] Safe "`undefined`"
+- [x] Robust "`undefined`"
 - [x] `==` vs `===`
 
 ## Read More

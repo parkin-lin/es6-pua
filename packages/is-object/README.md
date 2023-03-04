@@ -7,6 +7,20 @@
 - [isObject()](https://github.com/vuejs/core/blob/main/packages/shared/src/index.ts)
 - [isPlainObject()](https://github.com/vuejs/core/blob/main/packages/shared/src/index.ts)
 
+## Lodash
+
+- [isObject()](https://github.com/Tcdian/Lodash/blob/a661b6ef92/source/lang/isObject.ts)
+- [isPlainObject()](https://github.com/Tcdian/Lodash/blob/a661b6ef92/source/lang/isPlainObject.ts)
+- [isObjectLike()](https://github.com/Tcdian/Lodash/blob/a661b6ef92/source/lang/isObjectLike.ts)
+
+## Underscore
+
+- [isObject()](https://github.com/jashkenas/underscore/blob/master/modules/isObject.js)
+
+## Redux
+
+- [isObject()](https://github.com/reduxjs/redux/blob/master/src/utils/isPlainObject.ts)
+
 ## Think Different
 
 - [x] `Object.prototype.toString()`
