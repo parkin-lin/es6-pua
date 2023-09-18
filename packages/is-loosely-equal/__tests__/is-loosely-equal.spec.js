@@ -6,7 +6,7 @@ suite('7.2.14 IsLooselyEqual(x,y)', () => {
   suite('1. If Type(x) is Type(y), then return IsStrictlyEqual(x, y).', () => {
     it.each([
       { x: Number.NaN, y: Number.NaN },
-      { x: 996, y: 996 },
+      { x: 347, y: 347 },
       { x: null, y: null },
       { x: null, y: Object.create(null) },
       { x: void 0, y: void 0 },
@@ -18,7 +18,7 @@ suite('7.2.14 IsLooselyEqual(x,y)', () => {
       { x: Symbol(''), y: Symbol('') },
       { x: 0n, y: 0n },
       { x: 0n, y: 996n },
-      { x: Object.create(null), y: null },
+      { x: Object.create(null), y: Object.create(null) },
       { x: globalThis.Object, y: globalThis.Object },
     ])('%#. If Type($x) is Type($y), then return IsStrictlyEqual($x, $y).', ({ x, y }) => {
       expect(isLooselyEqual(x, y)).toBe(x == y)
@@ -64,15 +64,17 @@ suite('7.2.14 IsLooselyEqual(x,y)', () => {
       { x: 996, y: '996' },
     ])('%#. If x is a $x and y is a $y, return IsLooselyEqual($x, ToNumber($y)).', ({ x, y }) => {
       expect(isLooselyEqual(x, y)).toBe(x == y)
+      expect(isLooselyEqual(x, y)).toBe(isLooselyEqual(x, +y))
     })
   })
 
   suite('6. If x is a String and y is a Number, return IsLooselyEqual(ToNumber(x), y).', () => {
     it.each([
-      { x: 347, y: '996' },
-      { x: 996, y: '996' },
-    ])('%#. If x is a $y and y is a $x, return IsLooselyEqual(ToNumber($y), $x).', ({ x, y }) => {
+      { y: 347, x: '996' },
+      { y: 996, x: '996' },
+    ])('%#. If x is a $x and y is a $y, return IsLooselyEqual(ToNumber($x), $y).', ({ x, y }) => {
       expect(isLooselyEqual(x, y)).toBe(x == y)
+      expect(isLooselyEqual(x, y)).toBe(isLooselyEqual(+x, y))
     })
   })
 
@@ -90,8 +92,8 @@ suite('7.2.14 IsLooselyEqual(x,y)', () => {
     ])('c-%#. Return IsLooselyEqual($x, n).', ({ x, y }) => {
       const n = BigInt(y)
 
-      expect(isLooselyEqual(x, y)).toBe(isLooselyEqual(x, n))
       expect(isLooselyEqual(x, n)).toBe(x == n)
+      expect(isLooselyEqual(x, y)).toBe(isLooselyEqual(x, n))
     })
   })
 
@@ -101,8 +103,8 @@ suite('7.2.14 IsLooselyEqual(x,y)', () => {
       { y: 996n, x: '996' },
       { y: 996n, x: '996n' },
     ])('8-%#. If x is a $x and y is a $y, return IsLooselyEqual(%y, x).', ({ x, y }) => {
-      expect(isLooselyEqual(x, y)).toBe(isLooselyEqual(y, x))
       expect(isLooselyEqual(x, y)).toBe(x == y)
+      expect(isLooselyEqual(x, y)).toBe(isLooselyEqual(y, x))
     })
   })
 
@@ -112,8 +114,6 @@ suite('7.2.14 IsLooselyEqual(x,y)', () => {
       { x: true, y: 0 },
       { x: false, y: 996 },
       { x: false, y: 0 },
-      { x: true, y: Symbol('') },
-      { x: false, y: Symbol('') },
     ])('9-%#. If x is $x, return IsLooselyEqual(ToNumber($x), $y).', ({ x, y }) => {
       expect(isLooselyEqual(x, y)).toBe(x == y)
       expect(isLooselyEqual(x, y)).toBe(isLooselyEqual(+x, y))
@@ -134,10 +134,13 @@ suite('7.2.14 IsLooselyEqual(x,y)', () => {
 
   suite('11. If x is either a String, a Number, a BigInt, or a Symbol and y is an Object, return IsLooselyEqual(x, ToPrimitive(y)).', () => {
     it.each([
-      { x: 996, y: [996] },
-      { x: 996, y: [] },
-      { x: 0, y: [996] },
-      { x: 0, y: [] },
+      { y: [], x: 0 },
+      { y: [], x: 347 },
+      { y: [], x: 0n },
+      { y: [], x: 996n },
+      { y: [], x: '' },
+      { y: [], x: '347' },
+      { y: [], x: Symbol('') },
     ])('11-%#. If x is $x and y is $y, return IsLooselyEqual($x, ToPrimitive($y)).', ({ x, y }) => {
       expect(isLooselyEqual(x, y)).toBe(x == y)
       expect(isLooselyEqual(x, y)).toBe(isLooselyEqual(x, y.toString()))
@@ -146,10 +149,13 @@ suite('7.2.14 IsLooselyEqual(x,y)', () => {
 
   suite('12. If x is an Object and y is either a String, a Number, a BigInt, or a Symbol, return IsLooselyEqual(ToPrimitive(x), y).', () => {
     it.each([
-      { y: 996, x: [996] },
-      { y: 996, x: [] },
-      { y: 0, x: [996] },
-      { y: 0, x: [] },
+      { x: [], y: 0 },
+      { x: [], y: 347 },
+      { x: [], y: 0n },
+      { x: [], y: 996n },
+      { x: [], y: '' },
+      { x: [], y: '347' },
+      { x: [], y: Symbol('') },
     ])('12-%#. If x is $x and y is $y, return IsLooselyEqual(ToPrimitive($x), $y).', ({ x, y }) => {
       expect(isLooselyEqual(x, y)).toBe(x == y)
       expect(isLooselyEqual(x, y)).toBe(isLooselyEqual(x.toString(), y))
@@ -182,29 +188,43 @@ suite('7.2.14 IsLooselyEqual(x,y)', () => {
   })
 
   suite('14. Return false.', () => {
-    suite('If x is either a String, a Number, a BigInt and y is a Symbol, return false.', () => {
+    suite('If x is a Nullish and y is a Non-Nullish, or if x is a Non-Nullish and y is a Nullish, return false.', () => {
       it.each([
-        { x: 347, y: Symbol('') },
-        { x: 0, y: Symbol('') },
-        { x: '347', y: Symbol('') },
-        { x: '', y: Symbol('') },
-        { x: 0n, y: Symbol('') },
-        { x: 996n, y: Symbol('') },
+        { x: void 0, y: 0 },
+        { x: void 0, y: 0n },
+        { x: void 0, y: '' },
+        { x: void 0, y: Symbol('') },
+        { x: void 0, y: Object.create(null) },
+        { x: null, y: 0 },
+        { x: null, y: 0n },
+        { x: null, y: '' },
+        { x: null, y: Symbol('') },
+        { y: void 0, x: 0 },
+        { y: void 0, x: 0n },
+        { y: void 0, x: '' },
+        { y: void 0, x: Symbol('') },
+        { y: void 0, x: Object.create(null) },
+        { y: null, x: 0 },
+        { y: null, x: 0n },
+        { y: null, x: '' },
+        { y: null, x: Symbol('') },
       ])('%#. If x is $x and y is $y, return false.', ({ x, y }) => {
         expect(isLooselyEqual(x, y)).toBe(x == y)
+        expect(isLooselyEqual(x, y)).toBe(false)
       })
     })
 
-    suite('If is a Symbol and y is either a String, a Number, a BigInt, return false.', () => {
+    suite('If x is either a String, a Number, a BigInt and y is a Symbol, or if x is a Symbol and y is either a String, a Number, a BigInt, return false.', () => {
       it.each([
-        { y: 347, x: Symbol('') },
-        { y: 0, x: Symbol('') },
-        { y: '347', x: Symbol('') },
-        { y: '', x: Symbol('') },
-        { y: 0n, x: Symbol('') },
-        { y: 996n, x: Symbol('') },
+        { y: Symbol(''), x: 347 },
+        { y: Symbol(''), x: '' },
+        { y: Symbol(''), x: 996n },
+        { x: Symbol(''), y: 347 },
+        { x: Symbol(''), y: '' },
+        { x: Symbol(''), y: 996n },
       ])('%#. If x is $x and y is $y, return false.', ({ x, y }) => {
         expect(isLooselyEqual(x, y)).toBe(x == y)
+        expect(isLooselyEqual(x, y)).toBe(false)
       })
     })
   })
