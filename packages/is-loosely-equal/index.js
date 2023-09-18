@@ -3,7 +3,8 @@ const isNumber = $ => typeof $ === 'number'
 const isString = $ => typeof $ === 'string'
 const isBigInt = $ => typeof $ === 'bigint'
 const isBoolean = $ => typeof $ === 'boolean'
-const isObject = $ => typeof $ === 'object'
+const isObject = $ => typeof $ === 'object' && $ !== null
+const isSymbol = $ => typeof $ === 'symbol'
 
 /**
  * The abstract operation IsLooselyEqual provides the semantics for the == operator.
@@ -55,19 +56,13 @@ const isLooselyEqual = (x, y) => {
   if (isBoolean(y))
     return isLooselyEqual(x, +y)
 
-  if (!isObject(x) && isObject(y)) {
-    return isLooselyEqual(
-      x,
-      y.toString(),
-    )
-  }
+  if ((isString(x) || isNumber(x) || isBigInt(x) || isSymbol(x))
+    && isObject(y)
+  ) return isLooselyEqual(x, y.toString())
 
-  if (!isObject(y) && isObject(x)) {
-    return isLooselyEqual(
-      x.toString(),
-      y,
-    )
-  }
+  if ((isString(y) || isNumber(y) || isBigInt(y) || isSymbol(y))
+    && isObject(x)
+  ) return isLooselyEqual(x.toString(), y)
 
   if ((isBigInt(x) && isNumber(y))
     || (isNumber(x) && isBigInt(y))
