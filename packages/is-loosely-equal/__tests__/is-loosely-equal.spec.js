@@ -3,10 +3,27 @@ import { expect, it, suite } from 'vitest'
 import { isLooselyEqual } from '../index'
 
 suite('7.2.14 IsLooselyEqual(x,y)', () => {
-  it('1. If Type(x) is Type(y), then return IsStrictlyEqual(x, y).', () => {
-    const [x, y] = [347, 996]
-
-    expect(isLooselyEqual(x, y)).toBe(x == y)
+  suite('1. If Type(x) is Type(y), then return IsStrictlyEqual(x, y).', () => {
+    it.each([
+      { x: Number.NaN, y: Number.NaN },
+      { x: 996, y: 996 },
+      { x: null, y: null },
+      { x: null, y: Object.create(null) },
+      { x: void 0, y: void 0 },
+      { x: true, y: true },
+      { x: true, y: false },
+      { x: '', y: '' },
+      { x: '', y: 'hello world' },
+      { x: Symbol.for(''), y: Symbol.for('') },
+      { x: Symbol(''), y: Symbol('') },
+      { x: 0n, y: 0n },
+      { x: 0n, y: 996n },
+      { x: Object.create(null), y: null },
+      { x: globalThis.Object, y: globalThis.Object },
+    ])('%#. If Type($x) is Type($y), then return IsStrictlyEqual($x, $y).', ({ x, y }) => {
+      expect(isLooselyEqual(x, y)).toBe(x == y)
+      expect(isLooselyEqual(x, y)).toBe(x === y)
+    })
   })
 
   it('2. If x is null and y is undefined, return true.', () => {
