@@ -1,5 +1,5 @@
-import { suite, it, expect } from 'vitest'
-import { isJSONObject } from '@/is-object'
+import { expect, it, suite } from 'vitest'
+import { isJSONObject } from '../../is-object'
 
 suite('isJSONObject()', () => {
   it('Naked Object is a JSON object', () => {
@@ -15,7 +15,7 @@ suite('isJSONObject()', () => {
   })
 
   it('Set is a JSON-compliant object', () => {
-    expect(isJSONObject(new Set())).toBe(true)
+    expect(isJSONObject((new Set))).toBe(true)
   })
 
   it('Function is not a JSON-compliant object', () => {

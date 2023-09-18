@@ -1,5 +1,5 @@
-import { suite, it, expect } from 'vitest'
-import { isPlainObject } from '@/is-object'
+import { expect, it, suite } from 'vitest'
+import { isPlainObject } from '../../is-object'
 
 suite('isPlainObject()', () => {
   it('Naked Object is a plain object', () => {
@@ -15,7 +15,7 @@ suite('isPlainObject()', () => {
   })
 
   it('Set is a not plain object', () => {
-    expect(isPlainObject(new Set())).toBe(false)
+    expect(isPlainObject((new Set))).toBe(false)
   })
 
   it('Function is not a plain object', () => {
